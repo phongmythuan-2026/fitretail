@@ -42,24 +42,24 @@
         </div>
     </div>
 
-    <!-- Widget Nút Liên Hệ Nổi (Zalo & Email) -->
+    <!-- Widget Nút Liên Hệ Nổi (Zalo & Email - Mặc định ẩn, click để bật) -->
     <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end space-y-3">
-        <div id="contact-popup-menu" class="flex flex-col space-y-2.5 transition-all duration-300 transform scale-100 origin-bottom-right">
+        <div id="contact-popup-menu" class="hidden flex flex-col space-y-2.5 transition-all duration-300 transform scale-0 opacity-0 origin-bottom-right">
             <!-- Nút Zalo (SĐT: 0787793688) -->
             <a href="https://zalo.me/0787793688" target="_blank" class="flex items-center space-x-2 bg-blue-600 hover:bg-blue-500 text-white font-medium px-5 py-3 rounded-full shadow-lg shadow-blue-600/30 transition transform hover:-translate-y-0.5 text-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.14 2 11.25c0 2.81 1.34 5.33 3.44 7.01L4.5 21.5l3.52-1.1c1.23.35 2.54.55 3.98.55 5.52 0 10-4.14 10-9.25S17.52 2 12 2z"/></svg>
-                <span>Zalo: 0787 793 688</span>
+                <span>Liên hệ Zalo</span>
             </a>
             <!-- Nút Email (phongmythuan@gmail.com) -->
             <a href="mailto:phongmythuan@gmail.com" class="flex items-center space-x-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-medium px-5 py-3 rounded-full shadow-lg shadow-purple-600/30 transition transform hover:-translate-y-0.5 text-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-current" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                <span>phongmythuan@gmail.com</span>
+                <span>Gửi Email</span>
             </a>
         </div>
-        <!-- Nút thu gọn / mở rộng menu -->
-        <button onclick="toggleContactMenu()" class="w-12 h-12 bg-slate-800 hover:bg-slate-700 text-white rounded-full flex items-center justify-center shadow-xl border border-slate-700 transition focus:outline-none">
-            <svg id="contact-toggle-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transform transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        <!-- Nút kích hoạt mở rộng menu (Icon Contact) -->
+        <button onclick="toggleContactMenu()" class="w-12 h-12 accent-gradient hover:opacity-90 text-white rounded-full flex items-center justify-center shadow-2xl transition transform hover:scale-105 focus:outline-none">
+            <svg id="contact-toggle-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
             </svg>
         </button>
     </div>
@@ -217,7 +217,7 @@
             { name: "fittrading.com.vn", category: "trading", tag: "Thương Mại Quốc Tế", price: "Thương lượng", desc: "Khẳng định chủ quyền số, gia tăng uy tín trong các giao dịch đấu thầu B2B lớn trong và ngoài nước." }
         ];
 
-        // Khởi tạo render toàn bộ danh sách khi mở trang
+        // Khởi tạo render toàn bộ danh sách khi mở trang (Có đính kèm Hyperlink cho từng tên miền)
         function renderDomains(items) {
             const grid = document.getElementById('domain-grid');
             grid.innerHTML = '';
@@ -232,7 +232,14 @@
                             <span class="px-2 py-0.5 rounded-md text-[10px] font-bold accent-gradient text-white">${item.tag}</span>
                             <span class="text-sm font-bold text-amber-400 bg-amber-500/5 px-2.5 py-0.5 rounded-full border border-amber-500/10">${item.price}</span>
                         </div>
-                        <h3 class="text-xl font-bold text-white tracking-tight mb-2 group-hover:text-indigo-400 transition">${item.name}</h3>
+                        <h3 class="text-xl font-bold mb-2">
+                            <a href="https://${item.name}" target="_blank" class="text-white group-hover:text-indigo-400 transition flex items-center space-x-1.5">
+                                <span>${item.name}</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 opacity-0 group-hover:opacity-100 transition duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
+                            </a>
+                        </h3>
                         <p class="text-xs text-slate-400 leading-relaxed mb-6">${item.desc}</p>
                     </div>
                     <button onclick="openModal('${item.name}')" class="w-full py-2 bg-white/5 hover:bg-indigo-600 hover:text-white border border-white/10 rounded-xl text-xs font-semibold text-slate-200 transition duration-200 flex items-center justify-center space-x-1">
@@ -301,18 +308,24 @@
             }, 4000);
         }
 
-        // Ẩn/Hiện menu Zalo & Email khi bấm nút tròn dưới cùng
+        // Đóng/Mở danh sách Zalo & Email khi bấm vào nút Contact
         function toggleContactMenu() {
             const menu = document.getElementById('contact-popup-menu');
             const icon = document.getElementById('contact-toggle-icon');
             if (menu.classList.contains('hidden')) {
-                menu.classList.remove('hidden', 'scale-0', 'opacity-0');
-                menu.classList.add('scale-100', 'opacity-100');
-                icon.style.transform = 'rotate(0deg)';
+                menu.classList.remove('hidden');
+                setTimeout(() => {
+                    menu.classList.remove('scale-0', 'opacity-0');
+                    menu.classList.add('scale-100', 'opacity-100');
+                }, 10);
+                icon.style.transform = 'rotate(90deg)';
             } else {
-                menu.classList.add('hidden', 'scale-0', 'opacity-0');
                 menu.classList.remove('scale-100', 'opacity-100');
-                icon.style.transform = 'rotate(45deg)';
+                menu.classList.add('scale-0', 'opacity-0');
+                icon.style.transform = 'rotate(0deg)';
+                setTimeout(() => {
+                    menu.classList.add('hidden');
+                }, 300);
             }
         }
 
